@@ -10,7 +10,7 @@
             <br>
 
             &nbsp; &nbsp;
-            
+
             {{record.last_name|upper}}
             {{record.first_name}}
 
@@ -38,7 +38,7 @@
 
     <a href="{% url 'update-record' record.id %}" class = 'btn btn-info'> Update record </a>
     &nbsp;
-    <a href="{% url '' %}" class = 'btn btn-danger'> Delete </a>
+    <a href="{% url 'delete-record' record.id %}" class = 'btn btn-danger'> Delete </a>
     &nbsp;
 
 </body>
