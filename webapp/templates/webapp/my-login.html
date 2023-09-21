@@ -15,12 +15,18 @@
             <form method="POST" autocomplete="off">
 
                 {% csrf_token %}
-                {{form2|crispy}}
+
+                {{form.username|as_crispy_field}}
 
                 <br>
 
-                <button type="'submit" class="btn btn-primary w-100 btn-block p-2" form-layout>Login &nbsp; <i class="fa fa-key" aria-hidden="true"></i></button>
-                
+                {{form.password|as_crispy_field}}
+
+                <br>
+
+                <button type="submit" class="btn btn-primary w-100 btn-block p-2"> Login &nbsp; <i class="fa fa-key" aria-hidden="true"></i> </button>
+
+
             </form>
 
             <br>
