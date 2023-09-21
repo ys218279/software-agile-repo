@@ -17,17 +17,25 @@
             <form method="POST" autocomplete="off">
 
                 {% csrf_token %}
-                {{form|crispy}}
+                {{form.username|as_crispy_field}}
 
                 <br>
 
-                <button type="'submit" class="btn btn-primary w-100 btn-block p-2" form-layout> Create account</button>
+                {{form.password1|as_crispy_field}}
+
+                <br>
+                
+                {{form.username|as_crispy_field}}
+
+                <br>
+
+                <button type="'submit" class="btn btn-primary w-100 btn-block p-2" form-layout> Create account &nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
                 
             </form>
 
             <br>
             <div class="text-center">
-                <p>Already have an account?</p> <a href="{% url 'my-login'%}"> Login </a>
+                <p>Already have an account?</p> <a href="{% url 'my-login'%}"> Login &nbsp; <i class="fa fa-key" aria-hidden="true"></i></a>
             </div>
 
         </div>
