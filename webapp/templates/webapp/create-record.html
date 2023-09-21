@@ -1,41 +1,82 @@
 {% extends 'webapp/base.html' %}
+
 {% load crispy_forms_tags %}
+
 
 {% block content %}
 
-<body>
-    <div class="container bg-light shadow-md p-5">
+    <body>
 
-        <h3> Create record </h3>
+        <div class="container bg-light shadow-md p-5 form-layout">
 
-        <h6> Start adding in the required details for your record </h6>
+            <h3> Create record </h3>
 
-        <hr>
-        <br>
+            <h6> Start adding in the required details for your record. </h6>
 
-        <form method="POST" autocomplete="off">
-
-            {% csrf_token %}
-            
-            {{form|crispy}}
-
+            <hr>
             <br>
 
-            <button type="'submit" class="btn btn-primary" form-layout>
+            <form method="POST" autocomplete="off">
+
+                {% csrf_token %}
+
+                {{form.first_name|as_crispy_field}}
+
+                <br>
+
+                {{form.last_name|as_crispy_field}}
+
+                <br>
+
+                {{form.email|as_crispy_field}}
+
+                <br>
+
+                {{form.phone|as_crispy_field}}
+
+                <br>
+
+                {{form.address|as_crispy_field}}
+
+                <br>
+
+                {{form.city|as_crispy_field}}
+
+                <br>
+
+                {{form.province|as_crispy_field}}
+
+                <br>
+
+                {{form.country|as_crispy_field}}
+
+                <br>
                 
-                Create record &nbsp; <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-            
-            </button>
+                <button type="submit" class="btn btn-primary"> 
+                    
+                    Create record &nbsp; <i class="fa fa-check" aria-hidden="true"></i>
 
-            <a href="{% url 'dashboard' %}" class="btn btn-secondary">
+                </button>
 
-                Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                &nbsp;
 
-            </a>
-            
-        </form>
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary"> 
 
-    </div>
-</body>
+
+                    Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+                </a>
+
+
+            </form>
+
+        </div>
+
+        <br>
+
+    </body>
 
 {% endblock %}
+
+
+

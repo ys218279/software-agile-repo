@@ -22,14 +22,29 @@
     <body>
 
         <!--create navbar--> 
-
+        {%include 'webapp/navbar.html'%}
         <div class="container">
 
             <br>
-
+            
             <!--notification messages-->
+            
+            {% for message in messages %}
 
-            {%include 'webapp/navbar.html'%}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+
+
+                    <p id="message-timer" class="alert alert-success float-center text-center message-text"> 
+
+                        <i class="fa fa-check" aria-hidden="true"></i> &nbsp; {{message}}
+
+                    </p>
+
+
+                {% endif %}
+
+
+            {% endfor %}
 
             {% block content %}
             
