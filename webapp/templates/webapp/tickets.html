@@ -6,9 +6,9 @@
     
     <hr>
     
-    <a class="btn btn-primary btn-sm" href="{% url 'create-record' %}">
+    <a class="btn btn-primary btn-sm" href="{% url 'create-ticket-record' %}">
 
-        Create new record &nbsp; <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+        Hire equipment &nbsp; <i class="fa fa-plus-square-o" aria-hidden="true"></i>
 
     </a>
 
@@ -25,7 +25,7 @@
                 <th scope="col"> Phone </th>
                 <th scope="col"> Address </th>
                 <th scope="col"> City </th>
-                <th scope="col"> Province </th>
+                <th scope="col"> Postcode </th>
                 <th scope="col"> Country </th>
                 
                 <th scope="col"> Date joined</th>
@@ -35,20 +35,16 @@
 
         <tbody>
         
-        {% if records %}
+        {% if Tickets %}
 
-            {% for record in records %}
+            {% for record in Tickets %}
             <tr>
-                <td> {{record.id}} </td>
-                <td> {{record.first_name}}  {{record.last_name}} </td>
-                <td> {{record.email}} </td>
-                <td> {{record.phone}} </td>
-                <td> {{record.address}} </td>
-                <td> {{record.city}} </td>
-                <td> {{record.province}} </td>
-                <td> {{record.country}} </td>
-
-                <td> {{record.creation_date}} </td>
+                <td> {{Tickets.id}} </td>
+                <td> {{Tickets.item}} </td>
+                <td> {{Tickets.location_use}} </td>
+                <td> {{Tickets.date_hired}} </td>
+                <td> {{Tickets.date_returned}} </td>
+                
 
                 <td>
                     <a class="btn btn-success btn-sm" href="{%url 'record' record.id %}">

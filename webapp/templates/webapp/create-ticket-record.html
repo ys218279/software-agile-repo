@@ -20,35 +20,19 @@
 
                 {% csrf_token %}
 
-                {{form.first_name|as_crispy_field}}
+                {{form.item|as_crispy_field}}
 
                 <br>
 
-                {{form.last_name|as_crispy_field}}
+                {{form.location_use|as_crispy_field}}
 
                 <br>
 
-                {{form.email|as_crispy_field}}
+                {{form.date_hired|as_crispy_field}}
 
                 <br>
 
-                {{form.phone|as_crispy_field}}
-
-                <br>
-
-                {{form.address|as_crispy_field}}
-
-                <br>
-
-                {{form.city|as_crispy_field}}
-
-                <br>
-
-                {{form.province|as_crispy_field}}
-
-                <br>
-
-                {{form.country|as_crispy_field}}
+                {{form.date_returned|as_crispy_field}}
 
                 <br>
                 
@@ -60,7 +44,7 @@
 
                 &nbsp;
 
-                <a href="{% url 'dashboard' %}" class="btn btn-secondary"> 
+                <a href="{% url 'view-ticket' %}" class="btn btn-secondary"> 
 
 
                     Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>

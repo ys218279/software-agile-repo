@@ -1,20 +1,26 @@
 from django.shortcuts import render, redirect
-from .forms import CreateUserForm, LoginForm, CreateRecordForm, UpdateRecordForm
+from .forms import ExtendedUserCreationForm, LoginForm, CreateRecordForm, UpdateRecordForm
 
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
 
 from django.contrib.auth.decorators import login_required
 
-from .models import Record
+from .models import EmployeeDetails, Tickets
 
 from django.contrib import messages
 
 
 
-# - Homepage 
+# Home
 
 def home(request):
+
+    return render(request, 'webapp/home.html')
+
+# - Index page 
+
+def index(request):
 
     return render(request, 'webapp/index.html')
 
@@ -22,24 +28,16 @@ def home(request):
 # - Register a user
 
 def register(request):
-
-    form = CreateUserForm()
-
-    if request.method == "POST":
-
-        form = CreateUserForm(request.POST)
-
+    if request.method == 'POST':
+        form = ExtendedUserCreationForm(request.POST)
         if form.is_valid():
-
             form.save()
+            messages.success(request, 'Account created successfully!')
+            return redirect('my-login')  # or wherever you want to redirect to
+    else:
+        form = ExtendedUserCreationForm()
+    return render(request, 'webapp/register.html', {'form': form})
 
-            messages.success(request, "Account created successfully!")
-
-            return redirect("my-login")
-
-    context = {'form':form}
-
-    return render(request, 'webapp/register.html', context=context)
 
 
 # - Login a user
@@ -63,7 +61,7 @@ def my_login(request):
 
                 auth.login(request, user)
 
-                return redirect("dashboard")
+                return redirect("home")
 
     context = {'form':form}
 
@@ -75,11 +73,11 @@ def my_login(request):
 @login_required(login_url='my-login')
 def dashboard(request):
 
-    my_records = Record.objects.all()
+    my_records = EmployeeDetails.objects.all()
 
     context = {'records': my_records}
 
-    return render(request, 'webapp/dashboard.html', context=context)
+    return render(request, 'webapp/home.html', context=context)
 
 
 # - Create a record 
@@ -99,7 +97,7 @@ def create_record(request):
 
             messages.success(request, "Your record was created!")
 
-            return redirect("dashboard")
+            return redirect("home")
 
     context = {'form': form}
 
@@ -109,27 +107,6 @@ def create_record(request):
 # - Update a record 
 
 @login_required(login_url='my-login')
-def update_record(request, pk):
-
-    record = Record.objects.get(id=pk)
-
-    form = UpdateRecordForm(instance=record)
-
-    if request.method == 'POST':
-
-        form = UpdateRecordForm(request.POST, instance=record)
-
-        if form.is_valid():
-
-            form.save()
-
-            messages.success(request, "Your record was updated!")
-
-            return redirect("dashboard")
-        
-    context = {'form':form}
-
-    return render(request, 'webapp/update-record.html', context=context)
 
 
 # - Read / View a singular record
@@ -137,7 +114,7 @@ def update_record(request, pk):
 @login_required(login_url='my-login')
 def singular_record(request, pk):
 
-    all_records = Record.objects.get(id=pk)
+    all_records = EmployeeDetails.objects.get(id=pk)
 
     context = {'record':all_records}
 
@@ -149,13 +126,13 @@ def singular_record(request, pk):
 @login_required(login_url='my-login')
 def delete_record(request, pk):
 
-    record = Record.objects.get(id=pk)
+    record = EmployeeDetails.objects.get(id=pk)
 
     record.delete()
 
     messages.success(request, "Your record was deleted!")
 
-    return redirect("dashboard")
+    return redirect("home")
 
 
 

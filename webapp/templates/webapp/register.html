@@ -15,23 +15,35 @@
             <br>
 
             <form method="POST" autocomplete="off">
-
                 {% csrf_token %}
                 {{form.username|as_crispy_field}}
-
                 <br>
-
+                {{ form.first_name|as_crispy_field }}
+                <br>
+                {{ form.last_name|as_crispy_field }}
+                <br>
+                {{ form.email|as_crispy_field }}
+                <br>
+                {{ form.phone|as_crispy_field }}
+                <br>
+                {{ form.country|as_crispy_field }}
+                <br>
+                {{ form.address|as_crispy_field }}
+                <br>
+                {{ form.city|as_crispy_field }}
+                <br>
+                {{ form.postcode|as_crispy_field }}
+                <br>
                 {{form.password1|as_crispy_field}}
-
                 <br>
-                
                 {{form.password2|as_crispy_field}}
-
                 <br>
 
-                <button type="'submit" class="btn btn-primary w-100 btn-block p-2" form-layout> Create account &nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
-                
+                <button type="submit" class="btn btn-primary w-100 btn-block p-2">
+                    Create account &nbsp; <i class="fa fa-user" aria-hidden="true"></i>
+                </button>
             </form>
+            
 
             <br>
             <div class="text-center">
