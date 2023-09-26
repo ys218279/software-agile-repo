@@ -15,7 +15,21 @@
 
             {% csrf_token %}
             
-            {{form|crispy}}
+            {{ form.first_name|as_crispy_field }}
+            <br>
+            {{ form.last_name|as_crispy_field }}
+            <br>
+            {{ form.email|as_crispy_field }}
+            <br>
+            {{ form.phone|as_crispy_field }}
+            <br>
+            {{ form.country|as_crispy_field }}
+            <br>
+            {{ form.address|as_crispy_field }}
+            <br>
+            {{ form.city|as_crispy_field }}
+            <br>
+            {{ form.postcode|as_crispy_field }}
 
             <br>
 
@@ -24,7 +38,7 @@
             
             </button>
             
-            <a href="{% url 'dashboard' %}" class="btn btn-secondary">
+            <a href="{% url 'view-employee-record' record.id%}" class="btn btn-secondary">
 
                 Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
 

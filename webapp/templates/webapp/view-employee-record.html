@@ -1,0 +1,48 @@
+{% extends 'webapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<body>
+    <div class='card'>
+        <div class="class-body">
+
+            <strong> 
+
+            <br>
+
+            &nbsp; &nbsp;
+
+            {{record.first_name}}
+            {{record.last_name}}
+
+        </strong>
+
+        <hr>
+            <p> <strong> ID: </strong>{{record.id}} </p>
+            <p> <strong> Email: </strong> {{record.email}} </p>
+            <p> <strong> Phone number: </strong> {{record.phone}} </p>
+            <p> <strong> Country: </strong> {{record.country}} </p>
+            <p> <strong> City: </strong> {{record.city}} </p>
+            <p> <strong> Address: </strong> {{record.address}} </p>
+            <p> <strong> Postcode: </strong> {{record.postcode}} </p>
+        </div>
+
+    </div>
+
+    <br>
+
+    <a href="{% url 'employee-records' %}" class="btn btn-secondary">
+
+        Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+    </a>
+
+    <a href="{% url 'update-employee-record' record.id%}" class = 'btn btn-info'> Update record </a>
+    &nbsp;
+    <a href="{% url 'delete-record' record.id %}" class = 'btn btn-danger'> Delete </a>
+    &nbsp;
+
+</body>
+
+{% endblock %}

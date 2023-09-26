@@ -5,6 +5,9 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 #from django.forms.widgets import PasswordInput, TextInput
 
+
+#Employee
+
 # - Register/Create a user
 
 class EmployeeDetailsForm(forms.ModelForm):
@@ -49,10 +52,10 @@ class LoginForm(AuthenticationForm):
     pass  # No need to explicitly define username and password fields
 
 
-class CreateRecordForm(forms.ModelForm):
-    class Meta:
-        model = EmployeeDetails
-        fields = ['first_name', 'last_name', 'email', 'phone', 'address', 'city', 'postcode', 'country']
+#class CreateRecordForm(forms.ModelForm):
+#    class Meta:
+#        model = EmployeeDetails
+#        fields = ['first_name', 'last_name', 'email', 'phone', 'address', 'city', 'postcode', 'country']
 
 
 class UpdateRecordForm(forms.ModelForm):
@@ -61,6 +64,7 @@ class UpdateRecordForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'email', 'phone', 'address', 'city', 'postcode', 'country']
 
 
+#Tickets 
 class CreateTicketRecordForm(forms.ModelForm):
     class Meta:
         model = Tickets
@@ -71,3 +75,4 @@ class UpdateTicketRecordForm(forms.ModelForm):
     class Meta:
         model = Tickets
         fields = ['item', 'location_use', 'date_hired', 'date_returned']
+

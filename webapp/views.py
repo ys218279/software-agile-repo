@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .forms import ExtendedUserCreationForm, LoginForm, CreateRecordForm, UpdateRecordForm
+from django.shortcuts import render, redirect , get_object_or_404
+from .forms import ExtendedUserCreationForm, LoginForm, CreateTicketRecordForm, UpdateRecordForm
 
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
@@ -12,11 +12,10 @@ from django.contrib import messages
 
 
 
-# Home
-
+# Home - admin
 def home(request):
 
-    return render(request, 'webapp/home.html')
+    return render(request, 'admin_webapp/admin-home.html')
 
 # - Index page 
 
@@ -33,7 +32,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Account created successfully!')
-            return redirect('my-login')  # or wherever you want to redirect to
+            return redirect('my-login') 
     else:
         form = ExtendedUserCreationForm()
     return render(request, 'webapp/register.html', {'form': form})
@@ -68,57 +67,78 @@ def my_login(request):
     return render(request, 'webapp/my-login.html', context=context)
 
 
-# - Dashboard
+# - employee records
 
 @login_required(login_url='my-login')
-def dashboard(request):
+def employee_records(request):
 
     my_records = EmployeeDetails.objects.all()
 
     context = {'records': my_records}
 
-    return render(request, 'webapp/home.html', context=context)
+    return render(request, 'admin_webapp/employee-records.html', context=context)
 
 
 # - Create a record 
 
-@login_required(login_url='my-login')
-def create_record(request):
+#@login_required(login_url='my-login')
+#def create_employee_record(request):
 
-    form = CreateRecordForm()
+#    form = CreateRecordForm()
 
-    if request.method == "POST":
+#    if request.method == "POST":
 
-        form = CreateRecordForm(request.POST)
+#        form = CreateRecordForm(request.POST)
 
-        if form.is_valid():
+#        if form.is_valid():
 
-            form.save()
+#            form.save()
 
-            messages.success(request, "Your record was created!")
+#            messages.success(request, "Your record was created!")
 
-            return redirect("home")
+#            return redirect("home")
 
-    context = {'form': form}
+#    context = {'form': form}
 
-    return render(request, 'webapp/create-record.html', context=context)
+#    return render(request, 'webapp/create-record.html', context=context)
 
 
 # - Update a record 
 
 @login_required(login_url='my-login')
+def update_employee_record(request, pk):
+
+    record = get_object_or_404(EmployeeDetails, pk=pk)
+    print(record, record.id)  # Debug print statement
+
+    form = UpdateRecordForm(instance=record)
+
+    if request.method == 'POST':
+
+        form = UpdateRecordForm(request.POST, instance=record)
+
+        if form.is_valid():
+
+            form.save()
+
+            messages.success(request, "Your record was updated!")
+
+            return redirect("view-employee-record",pk=record.id)
+        
+    context = {'form': form, 'record': record}
+    return render(request, 'webapp/update-employee-record.html', context=context)
 
 
 # - Read / View a singular record
 
 @login_required(login_url='my-login')
-def singular_record(request, pk):
+def singular_employee_record(request, pk):
 
     all_records = EmployeeDetails.objects.get(id=pk)
 
     context = {'record':all_records}
 
-    return render(request, 'webapp/view-record.html', context=context)
+    return render(request, 'webapp/view-employee-record.html', context=context)
 
 
 # - Delete a record
@@ -132,8 +152,31 @@ def delete_record(request, pk):
 
     messages.success(request, "Your record was deleted!")
 
-    return redirect("home")
+    return redirect("view-employee-record",pk=record.id)
 
+
+
+# - Tickets
+
+# - Create Ticket record
+
+def create_ticket_record(request):
+
+    if request.method == "POST":
+
+        form = CreateTicketRecordForm(request.POST)
+
+        if form.is_valid():
+
+            form.save()
+
+            messages.success(request, "Your record was created!")
+
+            return redirect("home")
+
+    context = {'form': form}
+
+    return render(request, 'webapp/create-record.html', context=context)
 
 
 # - User logout
