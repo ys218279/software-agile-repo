@@ -220,7 +220,18 @@ def update_ticket_record(request, pk):
     context = {'form': form, 'ticket_record': ticket_record}
     return render(request, 'webapp/update-ticket-record.html', context=context)
 
+# - Delete Ticket record
 
+@login_required(login_url='my-login')
+def delete_ticket_record(request, pk):
+
+    record = Tickets.objects.get(id=pk)
+
+    record.delete()
+
+    messages.success(request, "Your record was deleted!")
+
+    return redirect("tickets")
 # - User logout
 
 def user_logout(request):

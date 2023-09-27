@@ -18,5 +18,6 @@ urlpatterns = [
     path('create-ticket-record', views.create_ticket_record, name="create-ticket-record"),
     path('tickets', views.ticket_records, name='tickets'),
     path('view-ticket/<int:pk>/', views.singular_ticket_record, name="view-ticket"),
-    path('update-ticket-record/<int:pk>', views.update_ticket_record, name="update-ticket-record")
+    path('update-ticket-record/<int:pk>', views.update_ticket_record, name="update-ticket-record"),
+    path('delete-ticket-record/<int:pk>', views.delete_ticket_record, name="delete-ticket-record"),
 ]
