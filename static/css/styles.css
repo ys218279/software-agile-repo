@@ -7,3 +7,9 @@
 .messages-text{
     color: azure;
 }
+
+/* Styling placeholder text */
+input[type="text"]::placeholder {
+    color: grey;
+    font-style: italic;
+}

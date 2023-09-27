@@ -69,10 +69,18 @@ class CreateTicketRecordForm(forms.ModelForm):
     class Meta:
         model = Tickets
         fields = ['item', 'location_use', 'date_hired', 'date_returned']
+        widgets = {
+            'date_hired': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+            'date_returned': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
+            }
 
 
 class UpdateTicketRecordForm(forms.ModelForm):
     class Meta:
         model = Tickets
         fields = ['item', 'location_use', 'date_hired', 'date_returned']
+        widgets = {
+            'date_hired': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+            'date_returned': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
+        }
 

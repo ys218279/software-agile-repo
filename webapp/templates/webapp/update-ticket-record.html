@@ -1,0 +1,43 @@
+{% extends 'webapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<body>
+    <div class="container bg-light shadow-md p-5">
+
+        <h3> Update record </h3>
+
+        <hr>
+        <br>
+
+        <form method="POST" autocomplete="off">
+
+            {% csrf_token %}
+            
+            {{ form.item|as_crispy_field }}
+            <br>
+            {{ form.location_use|as_crispy_field }}
+            <br>
+            {{ form.date_hired|as_crispy_field }}
+            <br>
+            {{ form.date_returned|as_crispy_field }}
+            <br>
+
+            <button type="'submit" class="btn btn-primary" form-layout>
+                 Update record
+            
+            </button>
+            
+            <a href="{% url 'view-ticket' ticket_record.id%}" class="btn btn-secondary">
+
+                Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+            </a>
+        </form>
+
+    </div>
+</body>
+
+
+{% endblock %}

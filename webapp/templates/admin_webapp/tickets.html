@@ -24,24 +24,23 @@
                 <th scope="col"> location use </th>
                 <th scope="col"> Date hired </th>
                 <th scope="col"> Date date_returned </th>
+
+                <th scope="col"> View </th>
             </tr>
         </thead>
 
         <tbody>
         
-        {% if Tickets %}
-
-            {% for record in Tickets %}
+        {% if ticket_records|length > 1 %}
+            {% for ticket_record in ticket_records %}
             <tr>
-                <td> {{Tickets.id}} </td>
-                <td> {{Tickets.item}} </td>
-                <td> {{Tickets.location_use}} </td>
-                <td> {{Tickets.date_hired}} </td>
-                <td> {{Tickets.date_returned}} </td>
-
-                <th scope="col"> View </th>
+                <td> {{ticket_record.id}} </td>
+                <td> {{ticket_record.item}} </td>
+                <td> {{ticket_record.location_use}} </td>
+                <td> {{ticket_record.date_hired}} </td>
+                <td> {{ticket_record.date_returned}} </td>
                 <td>
-                    <a class="btn btn-success btn-sm" href="{%url 'record' record.id %}">
+                    <a class="btn btn-success btn-sm" href="{%url 'view-ticket' ticket_record.id %}">
                         
                         <i class="fa fa-eye" aria-hidden="true"></i>
                     

@@ -1,0 +1,43 @@
+{% extends 'webapp/base.html' %}
+
+{% block content %}
+
+    <div class="card">
+
+
+        <div class="card-body">
+
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i> &nbsp;
+
+            <strong>   
+    
+                {{ticket_records.item}}
+    
+            </strong>
+    
+            <hr> 
+
+            <p> <strong> ID: </strong> {{ticket_records.id}} </p>
+            <p> <strong> Location use: </strong> {{ticket_records.location_use}} </p>
+            <p> <strong> Date hired: </strong> {{ticket_records.date_hired}} </p>
+            <p> <strong> Date returned: </strong> {{ticket_records.date_returned}} </p>
+
+        </div>
+
+
+    </div>
+
+    <br>
+
+    <a href="{% url 'tickets' %}" class="btn btn-secondary"> Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i> </a>
+
+    &nbsp;
+
+    <a href="{% url 'update-ticket-record' ticket_records.id  %}" class="btn btn-info"> Update record &nbsp; <i class="fa fa-plus" aria-hidden="true"></i> </a>
+
+    &nbsp;
+
+    <a href="{% url '' %}" class="btn btn-danger"> Delete &nbsp;<i class="fa fa-minus-square" aria-hidden="true"></i> </a>
+
+
+{% endblock %}

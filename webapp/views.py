@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect , get_object_or_404
-from .forms import ExtendedUserCreationForm, LoginForm, CreateTicketRecordForm, UpdateRecordForm
+from .forms import ExtendedUserCreationForm, LoginForm, CreateTicketRecordForm, UpdateRecordForm, UpdateTicketRecordForm
 
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
@@ -158,25 +158,67 @@ def delete_record(request, pk):
 
 # - Tickets
 
+#view ticket record
+
+@login_required(login_url='my-login')
+def ticket_records(request):
+
+    ticket_records = Tickets.objects.all()
+
+    context = {'ticket_records': ticket_records}
+  
+    return render(request, 'admin_webapp/tickets.html', context=context)
+
+# - View single ticket
+
+@login_required(login_url='my-login')
+def singular_ticket_record(request, pk):
+
+    ticket_records= Tickets.objects.get(id=pk)
+
+    context = {'ticket_records': ticket_records}
+
+    return render(request, 'webapp/view-ticket.html', context=context)
+
+
+
 # - Create Ticket record
 
 def create_ticket_record(request):
 
-    if request.method == "POST":
-
+    if request.method == 'POST':
         form = CreateTicketRecordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tickets') # Replace 'tickets_list' with the name of the view that lists all tickets
+    else:
+        form = CreateTicketRecordForm()
+    return render(request, 'webapp/create-ticket-record.html', {'form': form})
+
+# - Update ticket record
+
+@login_required(login_url='my-login')
+def update_ticket_record(request, pk):
+
+    ticket_record = get_object_or_404(Tickets, pk=pk)
+    print(ticket_record,ticket_record.id)  # Debug print statement
+
+    form = UpdateTicketRecordForm(instance=ticket_record)
+
+    if request.method == 'POST':
+
+        form = UpdateRecordForm(request.POST, instance=ticket_record)
 
         if form.is_valid():
 
             form.save()
 
-            messages.success(request, "Your record was created!")
+            messages.success(request, "Your record was updated!")
 
-            return redirect("home")
-
-    context = {'form': form}
-
-    return render(request, 'webapp/create-record.html', context=context)
+            return redirect("view-ticket",pk=ticket_record.id)
+        
+    context = {'form': form, 'ticket_records': ticket_record}
+    return render(request, 'webapp/update-ticket-record.html', context=context)
 
 
 # - User logout
