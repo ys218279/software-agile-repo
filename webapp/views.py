@@ -207,7 +207,7 @@ def update_ticket_record(request, pk):
 
     if request.method == 'POST':
 
-        form = UpdateRecordForm(request.POST, instance=ticket_record)
+        form = UpdateTicketRecordForm(request.POST, instance=ticket_record)
 
         if form.is_valid():
 
@@ -217,7 +217,7 @@ def update_ticket_record(request, pk):
 
             return redirect("view-ticket",pk=ticket_record.id)
         
-    context = {'form': form, 'ticket_records': ticket_record}
+    context = {'form': form, 'ticket_record': ticket_record}
     return render(request, 'webapp/update-ticket-record.html', context=context)
 
 
