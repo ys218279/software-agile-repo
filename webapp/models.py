@@ -35,6 +35,7 @@ LOCATION_USE = (
 )
 
 class Tickets(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
     item = models.CharField(max_length=8, choices=ITEMS)
     location_use = models.CharField(max_length=6, choices=LOCATION_USE)
     date_hired = models.DateField(max_length=8)

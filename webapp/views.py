@@ -10,12 +10,26 @@ from .models import EmployeeDetails, Tickets
 
 from django.contrib import messages
 
-
+def index(request):
+    if not request.user.is_authenticated:
+        return redirect('my-login')
+    elif request.user.is_staff:
+        return redirect('admin-home')
+    else:
+        return redirect('user-home')
 
 # Home - admin
-def home(request):
-
+def admin_home(request):
     return render(request, 'admin_webapp/admin-home.html')
+@login_required
+def user_home(request):
+    try:
+        record = EmployeeDetails.objects.get(user=request.user)
+    except EmployeeDetails.DoesNotExist:
+        record = None
+    
+    context = {'record': record}
+    return render(request, 'user_webapp/user-home.html', context)
 
 # - Index page 
 
@@ -59,8 +73,10 @@ def my_login(request):
             if user is not None:
 
                 auth.login(request, user)
-
-                return redirect("home")
+                if user.is_staff:
+                    return redirect("admin-home")
+                else:
+                    return redirect("user-home")
 
     context = {'form':form}
 
@@ -78,30 +94,12 @@ def employee_records(request):
 
     return render(request, 'admin_webapp/employee-records.html', context=context)
 
-
-# - Create a record 
-
-#@login_required(login_url='my-login')
-#def create_employee_record(request):
-
-#    form = CreateRecordForm()
-
-#    if request.method == "POST":
-
-#        form = CreateRecordForm(request.POST)
-
-#        if form.is_valid():
-
-#            form.save()
-
-#            messages.success(request, "Your record was created!")
-
-#            return redirect("home")
-
-#    context = {'form': form}
-
-#    return render(request, 'webapp/create-record.html', context=context)
-
+# - Read / View a singular record
+@login_required(login_url='my-login')
+def singular_employee_record(request, pk):
+    all_records = EmployeeDetails.objects.get(id=pk)
+    context = {'record':all_records}
+    return render(request, 'webapp/view-employee-record.html', context=context)
 
 # - Update a record 
 
@@ -129,17 +127,6 @@ def update_employee_record(request, pk):
     return render(request, 'webapp/update-employee-record.html', context=context)
 
 
-# - Read / View a singular record
-
-@login_required(login_url='my-login')
-def singular_employee_record(request, pk):
-
-    all_records = EmployeeDetails.objects.get(id=pk)
-
-    context = {'record':all_records}
-
-    return render(request, 'webapp/view-employee-record.html', context=context)
-
 
 # - Delete a record
 
@@ -164,11 +151,13 @@ def delete_record(request, pk):
 def ticket_records(request):
 
     ticket_records = Tickets.objects.all()
-
     context = {'ticket_records': ticket_records}
-  
     return render(request, 'admin_webapp/tickets.html', context=context)
 
+
+def user_tickets(request):
+    tickets = Tickets.objects.filter(user=request.user)  # Correctly using 'user' field here
+    return render(request, 'user_webapp/user-tickets.html', {'tickets': tickets})
 # - View single ticket
 
 @login_required(login_url='my-login')
@@ -185,15 +174,18 @@ def singular_ticket_record(request, pk):
 # - Create Ticket record
 
 def create_ticket_record(request):
-
     if request.method == 'POST':
         form = CreateTicketRecordForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('tickets') # Replace 'tickets_list' with the name of the view that lists all tickets
+            ticket = form.save(commit=False)
+            ticket.user = request.user  # Assign the currently logged-in user to the user field of the Ticket model.
+            ticket.save()
+            messages.success(request, 'Ticket created successfully!')
+            return redirect('tickets')  # Redirect to the ticket_records view
     else:
         form = CreateTicketRecordForm()
-    return render(request, 'webapp/create-ticket-record.html', {'form': form})
+    return render(request, 'webapp/create-ticket-record.html', {'form': form})  # Render the form in the specified template
+
 
 # - Update ticket record
 

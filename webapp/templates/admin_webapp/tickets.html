@@ -19,7 +19,7 @@
         <thead class="table-light">
 
             <tr> 
-                <th scope="col"> ID </th>
+                <th scope="col"> Ticket ID </th>
                 <th scope="col"> Item </th>
                 <th scope="col"> location use </th>
                 <th scope="col"> Date hired </th>
@@ -31,7 +31,7 @@
 
         <tbody>
         
-        {% if ticket_records|length > 1 %}
+        {% if ticket_records %}
             {% for ticket_record in ticket_records %}
             <tr>
                 <td> {{ticket_record.id}} </td>

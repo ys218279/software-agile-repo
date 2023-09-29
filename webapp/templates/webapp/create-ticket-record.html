@@ -2,62 +2,37 @@
 
 {% load crispy_forms_tags %}
 
-
 {% block content %}
-
     <body>
-
         <div class="container bg-light shadow-md p-5 form-layout">
-
             <h3> Create record </h3>
-
             <h6> Fill in the required details. </h6>
-
             <hr>
             <br>
 
-            <form method="POST" autocomplete="off">
-
+            <form method="POST" action="{% url 'create-ticket-record' %}" autocomplete="off">
                 {% csrf_token %}
-
-                {{form.item|as_crispy_field}}
-
+                {{ form.item|as_crispy_field }}
                 <br>
-
-                {{form.location_use|as_crispy_field}}
-
+                {{ form.location_use|as_crispy_field }}
                 <br>
-
-                {{form.date_hired|as_crispy_field}}
-
+                {{ form.date_hired|as_crispy_field }}
                 <br>
-
-                {{form.date_returned|as_crispy_field}}
-
+                {{ form.date_returned|as_crispy_field }}
                 <br>
-                
-                <button type="submit" class="btn btn-primary"> 
-                    
+                <button type="submit" class="btn btn-primary">
                     Create record &nbsp; <i class="fa fa-check" aria-hidden="true"></i>
-
                 </button>
-
                 &nbsp;
-
-                <a href="{% url 'tickets' %}" class="btn btn-secondary"> 
-
-
-                    Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
-
+                <a href="{% url 'tickets' %}" class="btn btn-secondary">Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
             </form>
 
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
         </div>
-
         <br>
-
     </body>
-
 {% endblock %}
-
-
-

@@ -43,6 +43,7 @@ class ExtendedUserCreationForm(UserCreationForm):
                 address=self.cleaned_data['address'],
                 city=self.cleaned_data['city'],
                 country=self.cleaned_data['country'],
+                postcode=self.cleaned_data['postcode']
             )
             employee_details.save()
         return user
@@ -78,9 +79,9 @@ class CreateTicketRecordForm(forms.ModelForm):
 class UpdateTicketRecordForm(forms.ModelForm):
     class Meta:
         model = Tickets
-        fields = ['item', 'location_use', 'date_hired', 'date_returned']
+        fields = ['date_returned']
         widgets = {
-            'date_hired': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
             'date_returned': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'})
         }
+        
 

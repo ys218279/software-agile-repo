@@ -22,8 +22,13 @@
     <body>
 
         <!--create navbar--> 
-        {%include 'webapp/navbar.html'%}
-        <div class="container">
+        {%if user.is_staff%}
+           {%include 'admin_webapp/navbar.html'%}
+        {%else%}
+           {%include 'user_webapp/user-navbar.html'%}
+        {%endif%}
+           <div class="container">
+        
 
             <br>
             

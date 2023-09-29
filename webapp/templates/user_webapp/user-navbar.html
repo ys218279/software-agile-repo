@@ -1,9 +1,9 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center">
 
-    <a class="navbar-brand main-heading" href="{% url '' %}"> 
+    <a class="navbar-brand main-heading" href="https://www.arm.com/">
             
-      &nbsp; ProjectX
+      &nbsp; Arm
     
     </a>
   
@@ -34,29 +34,38 @@
   
             <li class="nav-item">
         
-              <a class="nav-link" href="{% url 'home' %}">Home &nbsp;  <i class="fa fa-home" aria-hidden="true"></i> </a>
+              <a class="nav-link" href="{% url 'user-home' %}">Home &nbsp;  <i class="fa fa-home" aria-hidden="true"></i> </a>
   
             </li>
   
   
             &nbsp;     &nbsp;     &nbsp; 
-
 
             <li class="nav-item">
-        
-              <a class="nav-link" href="{% url 'tickets' %}">Tickets &nbsp;  <i class="fa fa-ticket" aria-hidden="true"></i></i> </a>
-  
+
+              {% for record in records %}
+              <a class="btn btn-primary" type="button" href="{% url 'view-employee-record' record.id %}"> Employee details </a>
+              {% endfor %}
+            
             </li>
-
-
+          
             &nbsp;     &nbsp;     &nbsp; 
 
-
+            <li class="nav-item">
+              
+              <a class="btn btn-primary" type="button" href="{% url 'user-tickets' %}"> Tickets &nbsp; <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+            </li>
+          
+            &nbsp;     &nbsp;     &nbsp; 
+            
+            
+            
             <li class="nav-item">
   
               <a class="nav-link" href="{% url 'user-logout' %}">Sign out &nbsp; <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
   
             </li>
+
             
   
   

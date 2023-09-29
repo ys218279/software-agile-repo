@@ -1,43 +1,31 @@
 {% extends 'webapp/base.html' %}
+
 {% load crispy_forms_tags %}
 
 {% block content %}
+    <body>
+        <div class="container bg-light shadow-md p-5 form-layout">
+            <h3> Create Ticket </h3>
+            <h6> Fill in the required details. </h6>
+            <hr>
+            <br>
 
-<body>
-    <div class="container bg-light shadow-md p-5">
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                {{ form.date_returned|as_crispy_field }}
+                <button type="submit" class="btn btn-primary">
+                    Create Ticket
+                </button>
+                &nbsp;
+                <a href="{% url 'tickets' %}" class="btn btn-secondary">Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+            </form>
 
-        <h3> Update record </h3>
-
-        <hr>
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+        </div>
         <br>
-
-        <form method="POST" autocomplete="off">
-
-            {% csrf_token %}
-            
-            {{ form.item|as_crispy_field }}
-            <br>
-            {{ form.location_use|as_crispy_field }}
-            <br>
-            {{ form.date_hired|as_crispy_field }}
-            <br>
-            {{ form.date_returned|as_crispy_field }}
-            <br>
-
-            <button type="'submit" class="btn btn-primary" form-layout>
-                 Update record
-            
-            </button>
-            
-            <a href="{% url 'view-ticket' ticket_record.id%}" class="btn btn-secondary">
-
-                Return &nbsp; <i class="fa fa-arrow-left" aria-hidden="true"></i>
-
-            </a>
-        </form>
-
-    </div>
-</body>
-
-
+    </body>
 {% endblock %}

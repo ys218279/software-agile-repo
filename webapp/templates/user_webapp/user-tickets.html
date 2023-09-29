@@ -1,0 +1,50 @@
+{% extends 'webapp/base.html' %}
+
+{% block content %}
+
+<h5>Welcome {{ user }}</h5>
+
+<hr>
+
+<a class="btn btn-primary btn-sm" href="{% url 'create-ticket-record' %}">
+    Hire equipment &nbsp; <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+</a>
+
+<hr>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-light">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Item</th>
+        <th scope="col">Location use</th>
+        <th scope="col">Date hired</th>
+        <th scope="col">Date returned</th>
+        <th scope="col">View</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if tickets %}
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.id }}</td>
+                <td>{{ ticket.item }}</td>
+                <td>{{ ticket.location_use }}</td>
+                <td>{{ ticket.date_hired }}</td>
+                <td>{{ ticket.date_returned }}</td>
+                <td>
+                    <a class="btn btn-success btn-sm" href="{% url 'view-ticket' ticket.id %}">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="6">No tickets found.</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

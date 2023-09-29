@@ -1,0 +1,119 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center">
+
+    <a class="navbar-brand main-heading" href="https://www.arm.com/"> 
+            
+      &nbsp; Arm
+    
+    </a>
+  
+  
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+  
+    </button>
+  
+  
+      <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+  
+        
+        <ul class="navbar-nav mr-auto">
+  
+  
+          &nbsp;     &nbsp;     &nbsp; 
+  
+          {% if user.is_authenticated %}
+  
+            <li class="nav-item">
+        
+              <a class="nav-link" href="{% url 'admin-home' %}">Home &nbsp;  <i class="fa fa-home" aria-hidden="true"></i> </a>
+  
+            </li>
+  
+  
+            &nbsp;     &nbsp;     &nbsp; 
+
+            {% if user.is_staff %}
+            <li class="nav-item">
+        
+              <a class="nav-link" href="{% url 'tickets' %}">Tickets &nbsp;  <i class="fa fa-ticket" aria-hidden="true"></i></i> </a>
+  
+            </li>
+
+
+            &nbsp;     &nbsp;     &nbsp; 
+
+            <li class="nav-item">
+
+              <a class="btn btn-primary" type="button" href="{% url 'employee-records'%}"> Employee details &nbsp; <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+            
+            </li>
+          
+            &nbsp;     &nbsp;     &nbsp; 
+            {%else%}
+
+            <li class="nav-item">
+
+              <a class="btn btn-primary" type="button" href="{% url 'view-employee-record' record.id %}"> Employee details &nbsp; <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+            
+            </li>
+          
+            &nbsp;     &nbsp;     &nbsp; 
+            <li class="nav-item">
+              
+              <a class="btn btn-primary" type="button" href="{% url 'user-tickets' %}"> Employee details &nbsp; <i class="fa fa-user-plus" aria-hidden="true"></i></a>
+            </li>
+          
+            &nbsp;     &nbsp;     &nbsp; 
+            
+            
+            {%endif%}
+            
+            <li class="nav-item">
+  
+              <a class="nav-link" href="{% url 'user-logout' %}">Sign out &nbsp; <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
+  
+            </li>
+
+            
+  
+  
+        </ul>
+  
+        {% else %}
+  
+        <li class="nav-item">
+  
+          <a class="nav-link" href="{% url 'register' %}"> Register </a>
+  
+        </li>
+  
+  
+        &nbsp;     &nbsp;     &nbsp; 
+  
+  
+        <li class="nav-item">
+  
+          <a class="nav-link" href="{% url 'my-login' %}">Login</a>
+  
+        </li>
+  
+  
+        {% endif %}
+      
+        
+      </div>
+  
+  
+  </nav>
+
+
+
