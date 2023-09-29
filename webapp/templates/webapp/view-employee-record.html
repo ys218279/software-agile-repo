@@ -40,8 +40,10 @@
 
     <a href="{% url 'update-employee-record' record.id%}" class = 'btn btn-info'> Update record </a>
     &nbsp;
+    {% if user.is_staff %}
     <a href="{% url 'delete-record' record.id %}" class = 'btn btn-danger'> Delete </a>
     &nbsp;
+    {%endif%}
 
 </body>
 
